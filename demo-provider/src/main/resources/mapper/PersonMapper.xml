@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bingo.demoProvider.mapper.PersonMapper">
+
+    <resultMap id="BaseResultMap" type="com.bingo.demoProvider.entity.Person">
+            <id property="uid" column="uid" jdbcType="INTEGER"/>
+            <result property="mobile" column="mobile" jdbcType="CHAR"/>
+            <result property="passwd" column="passwd" jdbcType="VARCHAR"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="sex" column="sex" jdbcType="TINYINT"/>
+            <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+            <result property="nation" column="nation" jdbcType="VARCHAR"/>
+            <result property="provincial" column="provincial" jdbcType="VARCHAR"/>
+            <result property="city" column="city" jdbcType="CHAR"/>
+            <result property="area" column="area" jdbcType="CHAR"/>
+            <result property="salary" column="salary" jdbcType="INTEGER"/>
+            <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--<sql id="Base_Column_List">
+        uid,mobile,passwd,
+        name,sex,birthday,
+        nation,provincial,city,
+        area,salary,updated_time
+    </sql>-->
+    <select id="selectOneByCity" resultMap="BaseResultMap">
+        select
+        uid, mobile, passwd, name, sex, birthday, nation, provincial, city, area, salary, updated_time
+        from person
+        where
+        city = #{city,jdbcType=VARCHAR}
+    </select>
+</mapper>

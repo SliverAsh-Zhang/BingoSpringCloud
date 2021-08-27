@@ -1,0 +1,43 @@
+eureka:
+  #  instance:
+  #    prefer-ip-address: ture # 当微服务有使用IP进行注册时，优先使用IP进行访问
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+
+spring:
+  application:
+    name: bsc-gateway
+  cloud:
+    ### config ###
+    #    config:
+    #      discovery:
+    #        enabled: true
+    #        serviceId: bsc-config
+    #      # 需要在bootstrap.yml中预先加载配置，否则application.yml中无法引用
+    #      name: gateway
+    ### gateway ###
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 根据注册中心自动注册路由，默认false，重启生效
+          lower-case-service-id: true # 将注册表中的服务名转为小写创建路由，默认false，重启生效
+      httpclient:
+        connect-timeout: 1000 # 转发 后端服务超时时间
+        response-timeout: 3s # 转发 后端服务响应 超时时间
+      routes:
+        - id: baidu-route # 路由id唯一
+          uri: https://www.baidu.com # 路由后目标地址
+          predicates: # 谓词匹配 路由条件
+            - Path=/baidu # localhost:8080/baidu -> https://www.baidu.com
+          filters:
+            - StripPrefix=1 # 替换到第几位
+        - id: demo-consumer-route
+          uri: lb://demo-consumer # lb:// 从eureka中查询服务
+          predicates:
+            - Path=/consumer/**
+          #            - Method=GET
+          filters:
+            - StripPrefix=1
+
+#logging:

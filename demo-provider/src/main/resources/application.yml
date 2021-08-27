@@ -1,0 +1,24 @@
+#server:
+#  port: 8061
+spring:
+  #  application:
+  #    name: bsc-provider-demo
+  datasource:
+    url: jdbc:mysql://localhost:3306/mysql_study
+    name: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver # com.mysql.jdbc.Driver is deprecated
+#  profiles:
+#    active: dev
+
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml #配置xml资源路径

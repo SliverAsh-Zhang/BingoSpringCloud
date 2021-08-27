@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+
+---
+spring:
+  cloud:
+    config:
+      uri: http://localhost:8082
+      profile: dev
+      name: demoConsumer
+  config:
+    activate:
+      on-profile: dev

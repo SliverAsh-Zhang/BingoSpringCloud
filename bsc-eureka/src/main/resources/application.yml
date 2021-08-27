@@ -1,0 +1,23 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: bsc-eureka
+  security:
+    user:
+      name: bingo
+      password: 123456
+eureka:
+  instance:
+    hostname: localhost
+    # 使用IP访问注册中心
+    prefer-ip-address: true
+    # 在注册中心的status的时候显示的格式：ipAddress:port
+    instance-id: ${eureka.instance.hostname}:${server.port}
+  client:
+    # 单节点不需要注册服务自己
+    register-with-eureka: false
+    # 单节点不需要同步其他server
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: "http://${eureka.instance.hostname}:${server.port}/eureka/"

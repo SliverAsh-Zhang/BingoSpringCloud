@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: prod
+---
+spring:
+  application:
+    name: demo-provider
+  cloud:
+    config:
+      uri: http://localhost:8082
+      #      label: master
+      profile: prod
+      name: demoProvider #/{application}-{profile}.yml
+  config:
+    activate:
+      on-profile: prod
+
+---
+spring:
+  application:
+    name: demo-provider
+  cloud:
+    config:
+      uri: http://localhost:8082
+      #      label: master
+      profile: dev
+      name: demoProvider
+  config:
+    activate:
+      on-profile: dev
