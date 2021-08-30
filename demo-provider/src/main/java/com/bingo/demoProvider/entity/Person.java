@@ -6,70 +6,48 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @TableName(value ="person")
 @Data
 public class Person implements Serializable {
-    /**
-     * 
-     */
+
     @TableId(type = IdType.AUTO)
     private Integer uid;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "手机号")
     private String mobile;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "密码")
     private String passwd;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "性别")
     private Byte sex;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "生日")
     private Date birthday;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "所属国家")
     private String nation;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "所属省份")
     private String provincial;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "所属城市")
     private String city;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "所属区县")
     private String area;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "工资")
     private Integer salary;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "更新日期")
     private Date updatedTime;
 
     @TableField(exist = false)

@@ -25,11 +25,21 @@
         nation,provincial,city,
         area,salary,updated_time
     </sql>-->
-    <select id="selectOneByCity" resultMap="BaseResultMap">
+    <select id="selectAllByCity" resultMap="BaseResultMap">
         select
         uid, mobile, passwd, name, sex, birthday, nation, provincial, city, area, salary, updated_time
         from person
         where
         city = #{city,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAllDemoTwo" resultType="com.bingo.demoProvider.response.PersonResponseDemoTwo">
+        select provincial             as provincial,
+               count(*)               as countSum,
+               sum(if(sex = 1, 1, 0)) as countMan,
+               sum(if(sex = 0, 1, 0)) as countWomen
+        from person
+        where salary > #{requestParams.salary}
+        group by provincial
+        HAVING count(*) > 100;
     </select>
 </mapper>

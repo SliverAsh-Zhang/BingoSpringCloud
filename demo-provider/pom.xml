@@ -45,6 +45,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-client</artifactId>
         </dependency>
+        <!--common api-->
+        <dependency>
+            <groupId>com.bingo</groupId>
+            <artifactId>bsc-common</artifactId>
+        </dependency>
         <!--swagger api-->
         <dependency>
             <groupId>io.springfox</groupId>

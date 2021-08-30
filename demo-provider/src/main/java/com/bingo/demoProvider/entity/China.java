@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @TableName(value ="china")
@@ -14,21 +16,16 @@ public class China implements Serializable {
      * 
      */
     @TableId
+    @ApiModelProperty(value = "ID")
     private Integer id;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "名称")
     private String name;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "类型")
     private Integer type;
 
-    /**
-     * 
-     */
+    @ApiModelProperty(value = "上级ID")
     private Integer pid;
 
     @TableField(exist = false)

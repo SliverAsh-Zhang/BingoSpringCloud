@@ -21,4 +21,11 @@
         where
         Id = #{id,jdbcType=NUMERIC}
     </select>
+    <select id="selectAllByType" resultMap="BaseResultMap">
+        select
+        id, name, type, pid
+        from china
+        where
+        type = #{type,jdbcType=NUMERIC}
+    </select>
 </mapper>
