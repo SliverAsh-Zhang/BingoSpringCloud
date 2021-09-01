@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 //@MapperScan("com.bingo.demoProvider.mapper")
 public class MybatisPlusConfig {
 
-    // 开启
+    // 开启mybtis分页内容
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();

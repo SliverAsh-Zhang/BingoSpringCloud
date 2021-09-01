@@ -16,8 +16,6 @@ public interface ChinaMapper{
 
     IPage<China> selectAllByType (Page<?> page, @Param("type") Integer type);
 
-
-
 }
 
 
