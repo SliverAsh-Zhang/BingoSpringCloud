@@ -16,13 +16,21 @@
     <!-- 引入默认的logback配置文件 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
+    <!--使用默认的控制台日志输出实现-->
+<!--    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
+
     <!--
         Environment Properties
         通过定义的值会被插入到logger上下文中，定义变量后，可以使“${}”来使用变量。
+        通过设置defaultValue添加默认值
     -->
-    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <springProperty scope="context" name="springAppName" source="spring.application.name" defaultValue="springBoot"/>
     <springProperty scope="context" name="LOG_HOME" source="logging.file.path"/>
     <property name="LOG_FILE" value="${springAppName}"/>
+    <!--日志文件保存路径-->
+    <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
+    <!--LogStash访问host-->
+    <springProperty name="LOG_STASH_HOST" scope="context" source="logstash.host" defaultValue="localhost"/>
 
     <!-- 彩色日志 -->
     <!-- 彩色日志依赖的渲染类 -->
@@ -59,8 +67,7 @@
             ch.qos.logback.core.rolling.RollingFileAppender (文件大小到达指定尺寸的时候产生一个新文件)
             ch.qos.logback.core.FileAppender (文件)
     -->
-
-    <!-- Appender to log to console -->
+    <!-- 输出日志到控制台 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <!-- ThresholdFilter:阀值过滤器，过滤阈值水平以下的事件。 -->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
@@ -74,7 +81,7 @@
         </encoder>
     </appender>
 
-    <!-- Appender to log to file -->
+    <!-- 输出日志到滚动文件 -->
     <appender name="flatFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 被写入的文件名，可以是相对目录，也可以是绝对目录，如果上级目录不存在会自动创建 -->
         <file>${LOG_HOME}/${LOG_FILE}.log</file>
@@ -102,7 +109,7 @@
         </filter>
     </appender>
 
-    <!-- Appender to log to file in a JSON format -->
+    <!-- 输出日志到文件(JSON 格式) -->
     <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_HOME}/${LOG_FILE}.json</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -168,10 +175,19 @@
         level:用来设置打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和 OFF，
         <root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger。
     -->
-    <root level="INFO">
-        <appender-ref ref="console"/>
-        <appender-ref ref="flatFile"/>
-        <appender-ref ref="logstash"/>
-    </root>
+
+    <springProfile name="dev">
+        <root level="DEBUG">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="prod">
+        <root level="INFO">
+            <appender-ref ref="console"/>
+            <appender-ref ref="flatFile"/>
+            <appender-ref ref="logstash"/>
+        </root>
+    </springProfile>
 
 </configuration>

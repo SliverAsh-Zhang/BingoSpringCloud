@@ -8,9 +8,11 @@ spring:
     name: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver # com.mysql.jdbc.Driver is deprecated
+  output:
+    ansi:
+      enabled: detect # 彩色编码输出
 #  profiles:
 #    active: dev
-
 
 eureka:
   instance:
@@ -22,3 +24,9 @@ eureka:
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml #配置xml资源路径
+
+logging:
+  file:
+    path: logs
+    name: log/logging.log
+    config: logback-spring.xml

@@ -24,11 +24,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Api(tags = "数据源测试")
-@RestController
-/*
-    @RestController 相当于 @RequestBody 和 @Controller 的结合
-
- */
+@RestController //相当于@RequestBody 和 @Controller 的结合
 @RequestMapping(value = "/db")
 public class TestDBController {
 
